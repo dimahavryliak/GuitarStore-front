@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
     <div
       class="bg-[#0F0F0F] text-white px-8 py-3  flex justify-between items-center"
     >
-      <button class="text-xl" routerLink="/">Tech store</button>
+      <button class="text-xl" routerLink="/">Guitar store</button>
       <app-primary-button
         [label]="'Cart(' + cartService.cart().length + ')'"
         routerLink="/cart"
