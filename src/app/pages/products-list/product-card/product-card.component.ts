@@ -39,7 +39,7 @@ import { CartService } from '../../../services/cart.service';
           <div class="w-full">
             <app-primary-button
               label="Add to Cart"
-              (btnClicked)="cartService.addToCart(product())"
+              (btnClicked)="addToCart()"
             />
           </div>
         </div>
@@ -58,6 +58,11 @@ export class ProductCardComponent {
     return this.quantity >= 3
       ? this.product().wholesalePrice
       : this.product().retailPrice;
+  }
+
+  addToCart() {
+    const price = this.getPrice();
+    this.cartService.addToCart(this.product(), this.quantity, price);
   }
 
   truncateDescription(description: string, maxLength: number): string {
