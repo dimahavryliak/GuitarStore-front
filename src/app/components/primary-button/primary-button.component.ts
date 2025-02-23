@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-//button component
+
 @Component({
   selector: 'app-primary-button',
   imports: [],
