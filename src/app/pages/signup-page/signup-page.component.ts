@@ -1,4 +1,3 @@
-// filepath: /e:/guitar-store-frontend/src/app/pages/signup-page/signup-page.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
