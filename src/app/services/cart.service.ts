@@ -1,3 +1,4 @@
+// filepath: /e:/guitar-store-frontend/src/app/services/cart.service.ts
 import { Injectable, signal } from '@angular/core';
 import { Product } from '../models/products.model';
 
@@ -21,6 +22,10 @@ export class CartService {
     } else {
       this.cart.set([...this.cart(), { ...product, quantity, price }]);
     }
+  }
+
+  clearCart() {
+    this.cart.set([]);
   }
 
   constructor() {}
