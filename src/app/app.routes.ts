@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CheckoutFormComponent } from './pages/checkout/checkout-form/checkout-form.component';
+import { SignupPageComponent } from './pages/signup-page/signup-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 export const routes: Routes = [
   {
@@ -16,5 +18,13 @@ export const routes: Routes = [
   {
     path: 'checkout',
     component: CheckoutFormComponent,
+  },
+  {
+    path: 'signup',
+    component: SignupPageComponent,
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
   },
 ];
