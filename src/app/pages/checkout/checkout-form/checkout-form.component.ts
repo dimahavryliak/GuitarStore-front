@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BuyerService } from '../../../services/buyer.service';
+import { DealService } from '../../../services/deal.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -75,6 +76,7 @@ export class CheckoutFormComponent {
   constructor(
     private fb: FormBuilder,
     private buyerService: BuyerService,
+    private dealService: DealService,
     private snackBar: MatSnackBar,
     private router: Router,
     private cartService: CartService
@@ -97,7 +99,22 @@ export class CheckoutFormComponent {
           contactPerson: this.checkoutForm.value.contactPerson,
           address: this.checkoutForm.value.address,
         };
-        await this.buyerService.createBuyer(buyerData);
+        const createdBuyer = await this.buyerService.createBuyer(buyerData);
+
+        const dealData = {
+          dateOfDeal: new Date().toISOString().split('T')[0],
+          products: this.cartService.cart().map((item) => ({
+            name: item.name,
+            quantity: item.quantity,
+          })),
+          buyer: {
+            phone: createdBuyer.phone,
+            contactPerson: createdBuyer.contactPerson,
+            address: createdBuyer.address,
+          },
+        };
+        await this.dealService.createDeal(dealData);
+
         this.cartService.clearCart();
 
         this.snackBar.open('Order successfully created!', 'Close', {
@@ -111,7 +128,7 @@ export class CheckoutFormComponent {
           this.router.navigate(['/']);
         }, 2000);
       } catch (error) {
-        console.error('Error creating buyer:', error);
+        console.error('Error creating buyer or deal:', error);
 
         this.snackBar.open('Failed to create order. Try again!', 'Close', {
           duration: 3000,
