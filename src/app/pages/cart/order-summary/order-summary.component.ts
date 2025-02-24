@@ -1,8 +1,10 @@
+// filepath: /e:/guitar-store-frontend/src/app/pages/cart/order-summary/order-summary.component.ts
 import { Component, computed, inject } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { PrimaryButtonComponent } from '../../../components/primary-button/primary-button.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -19,7 +21,11 @@ import { CommonModule } from '@angular/common';
           <span class="text-lg">Discount:</span>
           <span class="font-bold">{{ '$' + discount() }}</span>
         </div>
-        <app-primary-button label="Checkout" routerLink="/checkout" />
+        <app-primary-button
+          label="Checkout"
+          (btnClicked)="checkout()"
+          routerLink="/checkout"
+        />
       </div>
     </div>
   `,
@@ -27,6 +33,7 @@ import { CommonModule } from '@angular/common';
 })
 export class OrderSummaryComponent {
   cartService = inject(CartService);
+  orderService = inject(OrderService);
 
   total = computed(() => {
     let total = 0;
@@ -59,4 +66,8 @@ export class OrderSummaryComponent {
   totalWithDiscount = computed(() => {
     return this.total() - this.discount();
   });
+
+  checkout() {
+    this.orderService.setTotalPrice(this.totalWithDiscount());
+  }
 }
