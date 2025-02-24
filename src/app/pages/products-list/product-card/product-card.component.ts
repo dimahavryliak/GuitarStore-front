@@ -10,7 +10,7 @@ import { CartService } from '../../../services/cart.service';
   imports: [PrimaryButtonComponent, FormsModule],
   template: `
     <div
-      class="w-[350px] h-[450px] bg-white border rounded-xl p-6 shadow-md flex flex-col"
+      class="bg-white border rounded-xl p-6 shadow-md flex flex-col min-h-[450px]"
     >
       <div class="flex justify-center">
         <img
@@ -19,7 +19,7 @@ import { CartService } from '../../../services/cart.service';
         />
       </div>
 
-      <div class="flex flex-col flex-grow mt-4">
+      <div class="flex flex-col flex-1 mt-4">
         <span class="text-lg font-bold">{{ product().name }}</span>
         <span class="text-sm">
           {{ truncateDescription(product().description, 95) }}
