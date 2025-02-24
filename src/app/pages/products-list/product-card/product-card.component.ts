@@ -10,7 +10,8 @@ import { CartService } from '../../../services/cart.service';
   imports: [PrimaryButtonComponent, FormsModule],
   template: `
     <div
-      class="group bg-white border rounded-xl p-4 sm:p-5 shadow-md flex flex-col min-h-[380px] md:min-h-[420px] transition-all duration-300 transform relative hover:scale-110 hover:w-[300px] sm:hover:w-[350px] hover:z-10"
+      class="group bg-white border rounded-xl p-4 sm:p-5 shadow-md flex flex-col min-h-[380px] md:min-h-[420px] 
+  transition-all duration-300 transform relative hover:scale-105 hover:w-[330px] sm:hover:w-[380px] hover:z-10"
     >
       <div class="flex justify-center">
         <img
