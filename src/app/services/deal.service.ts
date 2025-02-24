@@ -1,4 +1,4 @@
-// filepath: /e:/guitar-store-frontend/src/app/services/deal.service.ts
+
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 
