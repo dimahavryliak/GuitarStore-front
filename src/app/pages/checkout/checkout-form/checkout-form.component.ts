@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BuyerService } from '../../../services/buyer.service';
@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
+import { OrderService } from '../../../services/order.service';
 
 @Component({
   selector: 'app-checkout-form',
@@ -70,8 +71,9 @@ import { CartService } from '../../../services/cart.service';
   `,
   styles: [],
 })
-export class CheckoutFormComponent {
+export class CheckoutFormComponent implements OnInit {
   checkoutForm: FormGroup;
+  totalPrice: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -79,7 +81,8 @@ export class CheckoutFormComponent {
     private dealService: DealService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private orderService: OrderService
   ) {
     this.checkoutForm = this.fb.group({
       phoneNumber: [
@@ -88,6 +91,13 @@ export class CheckoutFormComponent {
       ],
       contactPerson: [null, Validators.required],
       address: [null, Validators.required],
+    });
+  }
+
+  ngOnInit() {
+    this.orderService.getTotalPrice().subscribe((price) => {
+      this.totalPrice = price;
+      console.log(this.totalPrice); // Debug log to check the price
     });
   }
 
@@ -106,12 +116,14 @@ export class CheckoutFormComponent {
           products: this.cartService.cart().map((item) => ({
             name: item.name,
             quantity: item.quantity,
+            price: item.quantity >= 3 ? item.wholesalePrice : item.retailPrice,
           })),
           buyer: {
             phone: createdBuyer.phone,
             contactPerson: createdBuyer.contactPerson,
             address: createdBuyer.address,
           },
+          price: this.totalPrice,
         };
         await this.dealService.createDeal(dealData);
 
