@@ -1,4 +1,3 @@
-// filepath: /e:/guitar-store-frontend/src/app/pages/cart/order-summary/order-summary.component.ts
 import { Component, computed, inject } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { PrimaryButtonComponent } from '../../../components/primary-button/primary-button.component';
