@@ -10,6 +10,7 @@ export class AuthService {
   private API_URL = 'http://localhost:5000/api';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   private usernameSubject = new BehaviorSubject<string | null>(null);
+  private isEmployeeSubject = new BehaviorSubject<boolean | null>(null);
 
   constructor(private cartService: CartService) {}
 
@@ -21,6 +22,7 @@ export class AuthService {
       );
       this.isAuthenticatedSubject.next(true);
       this.usernameSubject.next(userData.username);
+      this.isEmployeeSubject.next(response.data.isEmployee ?? false);
       return response.data;
     } catch (error) {
       throw error;
@@ -32,6 +34,7 @@ export class AuthService {
       const response = await axios.post(`${this.API_URL}/auth/login`, userData);
       this.isAuthenticatedSubject.next(true);
       this.usernameSubject.next(userData.username);
+      this.isEmployeeSubject.next(response.data.isEmployee ?? false);
       return response.data;
     } catch (error) {
       throw error;
@@ -41,6 +44,7 @@ export class AuthService {
   logout() {
     this.isAuthenticatedSubject.next(false);
     this.usernameSubject.next(null);
+    this.isEmployeeSubject.next(null);
     this.cartService.clearCart();
   }
 
@@ -50,5 +54,9 @@ export class AuthService {
 
   getUsername(): Observable<string | null> {
     return this.usernameSubject.asObservable();
+  }
+
+  getIsEmployee(): Observable<boolean | null> {
+    return this.isEmployeeSubject.asObservable();
   }
 }

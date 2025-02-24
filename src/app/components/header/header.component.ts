@@ -16,8 +16,10 @@ import { Observable } from 'rxjs';
       <button class="text-xl" routerLink="/">Guitar store</button>
       <div class="flex space-x-4">
         <ng-container *ngIf="isAuthenticated$ | async; else signUp">
-          <span class="text-lg">{{ username$ | async }}</span>
           <app-primary-button label="Logout" (btnClicked)="logout()" />
+          <ng-container *ngIf="isEmployee$ | async">
+            <app-primary-button label="Employee" routerLink="/admin" />
+          </ng-container>
         </ng-container>
         <ng-template #signUp>
           <app-primary-button label="Sign Up" routerLink="/signup" />
@@ -37,10 +39,12 @@ export class HeaderComponent implements OnInit {
 
   isAuthenticated$: Observable<boolean>;
   username$: Observable<string | null>;
+  isEmployee$: Observable<boolean | null>;
 
   constructor() {
     this.isAuthenticated$ = this.authService.getAuthStatus();
     this.username$ = this.authService.getUsername();
+    this.isEmployee$ = this.authService.getIsEmployee();
   }
 
   ngOnInit() {}
