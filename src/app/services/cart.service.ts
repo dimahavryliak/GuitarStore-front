@@ -1,4 +1,4 @@
-// filepath: /e:/guitar-store-frontend/src/app/services/cart.service.ts
+
 import { Injectable, signal } from '@angular/core';
 import { Product } from '../models/products.model';
 

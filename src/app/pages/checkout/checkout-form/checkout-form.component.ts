@@ -97,7 +97,7 @@ export class CheckoutFormComponent implements OnInit {
   ngOnInit() {
     this.orderService.getTotalPrice().subscribe((price) => {
       this.totalPrice = price;
-      console.log(this.totalPrice); // Debug log to check the price
+      console.log(this.totalPrice); 
     });
   }
 
