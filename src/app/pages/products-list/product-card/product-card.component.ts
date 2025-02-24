@@ -10,26 +10,31 @@ import { CartService } from '../../../services/cart.service';
   imports: [PrimaryButtonComponent, FormsModule],
   template: `
     <div
-      class="bg-white border rounded-xl p-6 shadow-md flex flex-col min-h-[450px]"
+      class="bg-white border rounded-xl p-4 sm:p-6 shadow-md flex flex-col min-h-[450px] md:min-h-[500px] transition-transform transform hover:scale-105"
     >
       <div class="flex justify-center">
         <img
           [src]="product().image"
-          class="w-[200px] h-[200px] object-contain"
+          class="w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] object-contain"
+          alt="Product Image"
         />
       </div>
 
       <div class="flex flex-col flex-1 mt-4">
-        <span class="text-lg font-bold">{{ product().name }}</span>
-        <span class="text-sm">
-          {{ truncateDescription(product().description, 95) }}
+        <span
+          class="text-base sm:text-lg font-bold text-gray-800 text-center"
+          >{{ product().name }}</span
+        >
+
+        <span class="text-sm text-gray-600 text-center flex-grow mt-6">
+          {{ truncateDescription(product().description, 85) }}
         </span>
 
-        <span class="text-md text-red-600 text-lg">
+        <span class="text-md sm:text-lg text-red-600 font-semibold text-center">
           {{ '$' + getPrice() + '/pcs' }}
         </span>
 
-        <div class="mt-auto pt-4 flex items-center space-x-2">
+        <div class="mt-auto pt-4 flex items-center justify-center gap-2">
           <input
             type="number"
             class="border rounded-xl p-1 w-16 text-center"

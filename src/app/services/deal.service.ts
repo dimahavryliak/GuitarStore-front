@@ -1,3 +1,4 @@
+// filepath: /e:/guitar-store-frontend/src/app/services/deal.service.ts
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 
@@ -10,6 +11,15 @@ export class DealService {
   async createDeal(dealData: any) {
     try {
       const response = await axios.post(`${this.API_URL}/deals`, dealData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getDeals() {
+    try {
+      const response = await axios.get(`${this.API_URL}/deals`);
       return response.data;
     } catch (error) {
       throw error;

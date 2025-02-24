@@ -5,14 +5,17 @@ import { Product } from '../../models/products.model';
 
 @Component({
   selector: 'app-products-list',
+  standalone: true,
   imports: [ProductCardComponent],
   template: `
-    <div
-      class="p-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-    >
-      @for (product of products; track product._id) {
-      <app-product-card [product]="product" />
-      }
+    <div class="p-4 sm:p-6 md:p-8">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+      >
+        @for (product of products; track product._id) {
+        <app-product-card [product]="product" />
+        }
+      </div>
     </div>
   `,
   styles: ``,

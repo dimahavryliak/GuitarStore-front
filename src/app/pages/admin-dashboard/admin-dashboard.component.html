@@ -1,0 +1,56 @@
+<div
+  *ngIf="isEmployee$ | async; else notAuthorized"
+  class="flex justify-center min-h-screen w-full"
+>
+  <div class="w-full max-w-5xl bg-white p-6 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-bold mb-4 text-center">Admin Dashboard</h1>
+    <div class="space-y-6">
+      <div
+        *ngFor="let deal of deals"
+        class="border border-gray-300 p-4 rounded-lg shadow-sm"
+      >
+        <h2 class="text-lg font-semibold text-gray-800">
+          Deal on {{ formatDate(deal.dateOfDeal) }}
+        </h2>
+        <p class="text-gray-600">
+          <span class="font-semibold">Total Price:</span> ${{ deal.price }}
+        </p>
+
+        <!-- Buyer Info -->
+        <div class="mt-2">
+          <h3 class="text-md font-semibold text-gray-700">
+            Buyer Information:
+          </h3>
+          <p class="text-gray-600">
+            <span class="font-semibold">Name:</span>
+            {{ deal.buyer.contactPerson }}
+          </p>
+          <p class="text-gray-600">
+            <span class="font-semibold">Phone:</span> {{ deal.buyer.phone }}
+          </p>
+          <p class="text-gray-600">
+            <span class="font-semibold">Address:</span> {{ deal.buyer.address }}
+          </p>
+        </div>
+
+        <!-- Products List -->
+        <div class="mt-3">
+          <h3 class="text-md font-semibold text-gray-700">Products:</h3>
+          <ul class="list-disc pl-5 text-gray-600">
+            <li *ngFor="let product of deal.products">
+              {{ product.name }} (x{{ product.quantity }})
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notAuthorized>
+  <div class="flex justify-center items-center min-h-screen">
+    <p class="text-lg text-center text-red-600">
+      You are not authorized to view this page.
+    </p>
+  </div>
+</ng-template>
